@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />    <title>GradeWise | Weekly Progress</title>
+    <link rel="shortcut icon" href="Favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-purple-100">
+    <div class="flex min-h-screen">
+        <div class="sidebar bg-purple-600 text-white w-64 p-6 rounded-r-3xl transition-transform duration-300 ease-in-out">
+            <div class="flex items-center mb-8">
+                <a href="index.html"><img alt="Home Icon" style="cursor: pointer;" class="w-10 h-10" src="home.svg"/></a>
+                <span class="ml-3 text-xl font-bold">Weekly Progress</span>
+            </div>
+            <nav class="space-y-4">
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="dashboard.html">
+                    <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+                </a>
+                <a class="flex items-center text-purple-200 text-white bg-purple-700 rounded-xl p-2" href="weekly-progress.html">
+                    <i class="fas fa-chart-line mr-3"></i>Weekly Progress
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="ToDoList.html">
+                    <i class="fas fa-check-double mr-3"></i>To-Do List
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="courses.html">
+                    <i class="fas fa-book mr-3"></i>Courses
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="assingments.html">
+                    <i class="fas fa-tasks mr-3"></i>Assignments
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="notes-maker.html">
+                    <i class="fas fa-sticky-note mr-3"></i>Notes Maker
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="schedule.html">
+                    <i class="fas fa-calendar-alt mr-3"></i>Timetable
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="result.html">
+                    <i class="fas fa-chart-bar mr-3"></i>Result
+                </a>
+                <a class=" logout flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="logout.html">
+                    <i class="fas fa-sign-out-alt mr-3"></i>Logout
+                </a>
+            </nav>
+        </div>
+        <div class="flex-1 p-8 content">
+            <div class="flex justify-between items-center mb-8">
+                <div class="relative">
+                    <button id="burgerButton" class="text-purple-600 focus:outline-none mb-4" onclick="toggleSidebar()">
+                        <i class="fas fa-bars text-2xl"></i>
+                      </button>
+                </div>
+                <div class="flex items-center">
+                    <div class="relative mr-4">
+                        <button class="hover:text-purple-300 focus:outline-none" onclick="toggleNotifications()">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="notification-badge" id="notificationCount">3</span>
+                        </button>
+                        <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-md shadow-xl overflow-hidden z-50">
+                            <div class="py-2">
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Lecture 9 of CS Uploaded</a>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Quiz for Database is live</a>
+                                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Assignment 2 Deadline Approaching</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="profile.html">
+                        <img alt="User profile picture" class="w-10 h-10 rounded-full mr-3"
+                          src="profile.svg" />
+                      </a>
+                      <div>
+                        <div class="font-bold" id="studentName">USER 101</div>
+                        <div class="text-sm text-gray-500" id="studentYear">3rd year</div>
+                      </div>
+                </div>
+            </div>
+
+            <div class="bg-purple-500 text-white rounded-3xl p-6 mb-8 flex items-center justify-between">
+                <div>
+                    <div class="text-sm" id="currentDate"></div>
+                    <div class="text-2xl font-bold">Your Weekly Progress</div>
+                    <div class="text-sm">Keep track of your academic journey this week.</div>
+                </div>
+                <img style="filter: invert();" alt="Weekly progress theme" class="w-24 h-24" src="progress.svg" />
+            </div>
+
+            <div class="mb-8">
+                <div class="text-xl font-bold mb-4">Class Attendance Summary</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200">
+                        <div class="font-bold text-lg mb-2">Object Oriented Programming</div>
+                        <div class="text-gray-600">
+                            <div>Classes Attended: <span class="font-bold text-purple-700">10</span></div>
+                            <div>Classes Missed: <span class="font-bold text-purple-700">2</span></div>
+                            <div class="mt-2">Attendance: <span class="font-bold text-purple-700">83%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200">
+                        <div class="font-bold text-lg mb-2">Database Systems</div>
+                        <div class="text-gray-600">
+                            <div>Classes Attended: <span class="font-bold text-purple-700">8</span></div>
+                            <div>Classes Missed: <span class="font-bold text-purple-700">1</span></div>
+                            <div class="mt-2">Attendance: <span class="font-bold text-purple-700">89%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200">
+                        <div class="font-bold text-lg mb-2">Web Development</div>
+                        <div class="text-gray-600">
+                            <div>Classes Attended: <span class="font-bold text-purple-700">12</span></div>
+                            <div>Classes Missed: <span class="font-bold text-purple-700">0</span></div>
+                            <div class="mt-2">Attendance: <span class="font-bold text-purple-700">100%</span></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <div class="text-xl font-bold mb-4">Upcoming Deadlines and Tasks</div>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="font-bold text-lg">Database Design Assignment</div>
+                            <span class="text-purple-600"><i class="fas fa-clipboard-list mr-2"></i>Assignment</span>
+                        </div>
+                        <div class="text-gray-600 mb-2">Submit ER diagram and schema.</div>
+                        <div class="flex justify-between items-center">
+                            <div>Deadline: <span class="font-bold text-purple-700">February 28, 2025</span></div>
+                            <div><i class="far fa-clock mr-2"></i>Recommended Study: <span class="font-bold text-purple-700">8 hours</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="font-bold text-lg">OOP Project Milestone 1</div>
+                            <span class="text-purple-600"><i class="fas fa-tasks mr-2"></i>Project</span>
+                        </div>
+                        <div class="text-gray-600 mb-2">Prototype demo and documentation.</div>
+                        <div class="flex justify-between items-center">
+                            <div>Deadline: <span class="font-bold text-purple-700">March 9, 2025</span></div>
+                            <div><i class="far fa-clock mr-2"></i>Recommended Study: <span class="font-bold text-purple-700">10 hours</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="font-bold text-lg">Web Dev Quiz 2</div>
+                            <span class="text-purple-600"><i class="fas fa-question-circle mr-2"></i>Quiz</span>
+                        </div>
+                        <div class="text-gray-600 mb-2">Topics: JavaScript Basics, DOM Manipulation.</div>
+                        <div class="flex justify-between items-center">
+                            <div>Date: <span class="font-bold text-purple-700">March 1, 2025</span></div>
+                            <div><i class="far fa-clock mr-2"></i>Recommended Study: <span class="font-bold text-purple-700">6 hours</span></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="loginSection" class="hidden">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" placeholder="University Email" required id="loginEmail">
+            <input type="password" placeholder="Password" required id="loginPassword">
+            <button type="submit">Login</button>
+            <p>Don't have an account? <a href="#" id="signupLink">Sign up</a></p>
+        </form>
+    </div>
+
+    <div id="signupSection" class="hidden">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <input type="text" placeholder="Your Name" required id="signupName">
+            <input type="email" placeholder="University Email" required id="signupEmail">
+            <input type="password" placeholder="Password" required id="signupPassword">
+            <button type="submit">Sign Up</button>
+            <p>Already have an account? <a href="#" id="loginLink">Login</a></p>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

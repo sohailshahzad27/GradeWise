@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeWise | Logout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Logout Confirmation Dialog Styles */
+        #logoutConfirmationDialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent black background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            /* High z-index to be on top */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        #logoutConfirmationDialog.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #logoutConfirmationBox {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        #logoutConfirmationDialog.active #logoutConfirmationBox {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #logoutConfirmationBox p {
+            font-size: 1.25rem;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+
+        #logoutConfirmationButtons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        #logoutConfirmationButtons button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #logoutYesButton {
+            background-color: #ef4444;
+            /* Red color for Yes button */
+            color: white;
+        }
+
+        #logoutYesButton:hover {
+            background-color: #dc2626;
+            /* Darker red on hover */
+            transform: translateY(-2px);
+        }
+
+        #logoutNoButton {
+            background-color: #3b82f6;
+            /* Blue color for No button */
+            color: white;
+        }
+
+        #logoutNoButton:hover {
+            background-color: #2563eb;
+            /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        #logoutMessage {
+            display: none;
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #10b981;
+            /* Green color for success message */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        #logoutMessage.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <!-- Logout Confirmation Dialog -->
+    <div id="logoutConfirmationDialog">
+        <div id="logoutConfirmationBox">
+            <p>Are you sure you want to logout?</p>
+            <div id="logoutConfirmationButtons">
+                <button id="logoutYesButton" class="yes-button">Yes</button>
+                <button id="logoutNoButton" class="no-button">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Success Message -->
+    <div id="logoutMessage">
+        You have been logged out. Thank you!
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutConfirmationDialog = document.getElementById('logoutConfirmationDialog');
+    const logoutYesButton = document.getElementById('logoutYesButton');
+    const logoutNoButton = document.getElementById('logoutNoButton');
+    const logoutMessage = document.getElementById('logoutMessage');
+
+    // Check if user is logged in, if not, redirect to login page
+    if (!localStorage.getItem('authToken')) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Show confirmation dialog when the page loads
+    logoutConfirmationDialog.classList.add('active');
+
+    // Handle Yes button click
+    logoutYesButton.addEventListener('click', () => {
+        // Clear authentication data
+        logoutUser(); // This function is from auth.js
+        
+        logoutConfirmationDialog.classList.remove('active');
+        setTimeout(() => {
+            logoutMessage.classList.add('active');
+        }, 300); // Wait for dialog to fade out
+
+        // Redirect to login page after 2 seconds
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 2000);
+    });
+
+    // Handle No button click
+    logoutNoButton.addEventListener('click', () => {
+        logoutConfirmationDialog.classList.remove('active');
+        setTimeout(() => {
+            window.location.href = 'dashboard.html'; // Redirect to dashboard
+        }, 300); // Wait for dialog to fade out
+    });
+});
+    </script>
+</body>
+
+</html>

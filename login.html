@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>GradeWise | Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .error-message {
+      color: #ef4444;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="bg-purple-100 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md p-6">
+    <div class="bg-white rounded-3xl shadow-xl p-8">
+      <div class="flex items-center justify-center mb-8">
+        <img src="profile.svg" alt="Student Portal Logo" class="w-16 h-16">
+        <h1 class="text-3xl font-bold text-purple-600 ml-4">Student Portal</h1>
+      </div>
+
+      <form id="loginForm" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+          <div class="relative">
+            <input type="email" 
+                   id="email"
+                   class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:border-purple-500"
+                   placeholder="student@university.edu"
+                   required>
+            <i class="fas fa-envelope absolute right-4 top-4 text-gray-400"></i>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+          <div class="relative">
+            <input type="password" 
+                   id="password"
+                   class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:border-purple-500"
+                   placeholder="********"
+                   required>
+            <i class="fas fa-lock absolute right-4 top-4 text-gray-400"></i>
+          </div>
+        </div>
+
+        <div id="error-message" class="error-message"></div>
+
+        <button type="submit" 
+                class="w-full bg-purple-600 text-white py-3 rounded-xl font-semibold
+                       hover:bg-purple-700 transition duration-300">
+          Sign In
+        </button>
+
+        <div class="text-center mt-4">
+          <a href="#" class="text-sm text-purple-600 hover:text-purple-700">Forgot Password?</a>
+        </div>
+      </form>
+
+      <div class="mt-8 text-center text-sm text-gray-600">
+        Don't have an account? 
+        <a href="signup.html" class="text-purple-600 hover:text-purple-700 font-semibold">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="text-center mt-6">
+      <div class="flex justify-center space-x-4">
+        <button class="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition duration-300">
+          <img src="google.svg" alt="Google" class="w-6 h-6">
+        </button>
+        <button class="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition duration-300">
+          <img src="fb.svg" alt="Microsoft" class="w-6 h-6">
+        </button>
+        <button class="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition duration-300">
+          <img src="apple.svg" alt="Apple" class="w-6 h-6">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // Check if already logged in
+    document.addEventListener('DOMContentLoaded', function() {
+      redirectIfLoggedIn();
+      
+      const loginForm = document.getElementById('loginForm');
+      loginForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+          const data = await loginUser(email, password);
+          window.location.href = 'dashboard.html';
+        } catch (error) {
+          showError(error.message);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

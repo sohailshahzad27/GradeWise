@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>GradeWise | Assignments</title>
+    <link rel="shortcut icon" href="Favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-purple-100">
+    <div class="flex min-h-screen">
+        <div
+            class="sidebar bg-purple-600 text-white w-64 p-6 rounded-r-3xl transition-transform duration-300 ease-in-out">
+            <div class="flex items-center mb-8">
+                <a href="index.html"><img alt="Home Icon" style="cursor: pointer;" class="w-10 h-10"
+                        src="home.svg" /></a>
+                <span class="ml-3 text-xl font-bold">Assignments</span>
+            </div>
+            <nav class="space-y-4">
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+                    href="dashboard.html">
+                    <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+                    href="weekly-progress.html">
+                    <i class="fas fa-chart-line mr-3"></i>Weekly Progress
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+                    href="ToDoList.html">
+                    <i class="fas fa-check-double mr-3"></i>To-Do List
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+                    href="courses.html">
+                    <i class="fas fa-book mr-3"></i>Courses
+                </a>
+                <a class="flex items-center text-purple-200 text-white bg-purple-700 rounded-xl p-2"
+                    href="assingments.html">
+                    <i class="fas fa-tasks mr-3"></i>Assignments
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+                    href="notes-maker.html">
+                    <i class="fas fa-sticky-note mr-3"></i>Notes Maker
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+                    href="schedule.html">
+                    <i class="fas fa-calendar-alt mr-3"></i>Timetable
+                </a>
+                <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+                    href="result.html">
+                    <i class="fas fa-chart-bar mr-3"></i>Result
+                </a>
+                <a class=" logout flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+                    href="logout.html">
+                    <i class="fas fa-sign-out-alt mr-3"></i>Logout
+                </a>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-8 content">
+            <!-- Header Section -->
+            <div class="flex-1 p-8 content">
+                <div class="flex justify-between items-center mb-8">
+                    <div class="relative">
+                        <button id="burgerButton" class="text-purple-600 focus:outline-none mb-4"
+                            onclick="toggleSidebar()">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="relative mr-4">
+                            <button class="hover:text-purple-300 focus:outline-none" onclick="toggleNotifications()">
+                                <i class="fas fa-bell text-xl"></i>
+                                <span class="notification-badge" id="notificationCount">3</span>
+                            </button>
+                            <div id="notificationDropdown"
+                                class="hidden absolute right-0 mt-2 w-72 bg-white rounded-md shadow-xl overflow-hidden z-50">
+                                <div class="py-2">
+                                    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Lecture
+                                        9 of CS Uploaded</a>
+                                    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Quiz for
+                                        Database is
+                                        live</a>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Assignment 2
+                                        Deadline
+                                        Approaching</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="profile.html">
+                            <img alt="User profile picture" class="w-10 h-10 rounded-full mr-3" src="profile.svg" />
+                        </a>
+                        <div>
+                            <div class="font-bold" id="studentName">USER 101</div>
+                            <div class="text-sm text-gray-500" id="studentYear">3rd year</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assignments Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-3xl font-bold">Your Assignments</h1>
+                    <div class="flex gap-2">
+                        <button onclick="openAssignmentModal()"
+                            class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 cursor-pointer">
+                            <i class="fas fa-plus mr-2"></i>New Assignment
+                        </button>
+                        <select id="statusFilter" onchange="filterByStatus(this.value)"
+                            class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 cursor-pointer">
+                            <option value="all">All Assignments</option>
+                            <option value="completed">Completed</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Assignments Container -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="assignmentsContainer">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="assignmentModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-6 w-11/12 max-w-2xl">
+                <h2 class="text-2xl font-bold mb-4 text-purple-600" id="modalTitle">New Assignment</h2>
+                <form id="assignmentForm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Assignment Title</label>
+                            <input type="text" id="assignmentTitle" required class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Course</label>
+                            <select id="assignmentCourse" class="w-full p-2 border rounded-lg">
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Due Date</label>
+                            <input type="date" id="dueDate" required class="w-full p-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Status</label>
+                            <select id="assignmentStatus" class="w-full p-2 border rounded-lg">
+                                <option value="pending">Pending</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium mb-1">Description</label>
+                        <textarea id="assignmentDescription" rows="3" class="w-full p-2 border rounded-lg"></textarea>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium mb-1">Attach File</label>
+                        <input type="file" id="assignmentFile" class="w-full p-2 border rounded-lg">
+                    </div>
+                    <div class="flex justify-end gap-3 mt-6">
+                        <button type="button" onclick="closeAssignmentModal()"
+                            class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                            Save Assignment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="deleteConfirmModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-8 max-w-md w-11/12 text-center">
+                <i class="fas fa-exclamation-triangle text-4xl text-purple-600 mb-4"></i>
+                <h3 class="text-xl font-bold mb-4">Delete Assignment</h3>
+                <p class="text-gray-600 mb-6">Are you sure you want to delete this assignment? This action cannot be
+                    undone.</p>
+                <div class="flex justify-center gap-4">
+                    <button onclick="closeDeleteModal()"
+                        class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                        Cancel
+                    </button>
+                    <button id="confirmDeleteBtn"
+                        class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const modelAssignment = [
+                {
+                    id: Date.now(),
+                    title: "Database Design Assignment",
+                    course: "Database Systems",
+                    dueDate: "2025-03-01",
+                    status: "pending",
+                    description: "Submit your ER diagram and schema by next week.",
+                    file: "DatabaseDesignAssignment.pdf"
+                }
+            ];
+
+            // Enhanced Assignment Functionality
+            let currentAssignmentToDelete = null;
+            let editMode = false;
+            let currentEditAssignment = null;
+
+            document.addEventListener('DOMContentLoaded', () => {
+                // Initialize assignments
+                if (!localStorage.getItem('assignments')) {
+                    localStorage.setItem('assignments', JSON.stringify(modelAssignment));
+                }
+                courses.forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course.title;
+                    option.textContent = course.title;
+                    courseSelect.appendChild(option);
+                });
+            });
+
+            function loadAssignments() {
+                const assignments = JSON.parse(localStorage.getItem('assignments'));
+                populateAssignments(assignments);
+            }
+
+            function openAssignmentModal(assignment = null) {
+                // Get courses from localStorage
+                const courses = JSON.parse(localStorage.getItem('courses')) || [];
+                const courseSelect = document.getElementById('assignmentCourse');
+
+                // Clear existing options
+                courseSelect.innerHTML = '';
+                // Populate courses from Courses page
+                courses.forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course.title;
+                    option.textContent = course.title;
+                    courseSelect.appendChild(option);
+                });
+
+                editMode = !!assignment;
+                currentEditAssignment = assignment;
+                const modal = document.getElementById('assignmentModal');
+                modal.classList.remove('hidden');
+
+                if (editMode) {
+                    document.getElementById('modalTitle').textContent = 'Edit Assignment';
+                    document.getElementById('assignmentTitle').value = assignment.title;
+                    document.getElementById('assignmentCourse').value = assignment.course;
+                    document.getElementById('dueDate').value = assignment.dueDate;
+                    document.getElementById('assignmentStatus').value = assignment.status;
+                    document.getElementById('assignmentDescription').value = assignment.description;
+                } else {
+                    document.getElementById('modalTitle').textContent = 'New Assignment';
+                    document.getElementById('assignmentForm').reset();
+                }
+            }
+
+            function closeAssignmentModal() {
+                document.getElementById('assignmentModal').classList.add('hidden');
+                editMode = false;
+                currentEditAssignment = null;
+            }
+
+            document.getElementById('assignmentForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const newAssignment = {
+                    id: editMode ? currentEditAssignment.id : Date.now(),
+                    title: document.getElementById('assignmentTitle').value,
+                    course: document.getElementById('assignmentCourse').value,
+                    dueDate: document.getElementById('dueDate').value,
+                    status: document.getElementById('assignmentStatus').value,
+                    description: document.getElementById('assignmentDescription').value,
+                    file: document.getElementById('assignmentFile').files[0]?.name || 'assignment.pdf'
+                };
+
+                const assignments = JSON.parse(localStorage.getItem('assignments'));
+
+                if (editMode) {
+                    const index = assignments.findIndex(a => a.id === currentEditAssignment.id);
+                    assignments[index] = newAssignment;
+                } else {
+                    assignments.push(newAssignment);
+                }
+
+                localStorage.setItem('assignments', JSON.stringify(assignments));
+                loadAssignments();
+                closeAssignmentModal();
+            });
+
+            function showDeleteModal(title) {
+                currentAssignmentToDelete = title;
+                document.getElementById('deleteConfirmModal').classList.remove('hidden');
+            }
+
+            function closeDeleteModal() {
+                currentAssignmentToDelete = null;
+                document.getElementById('deleteConfirmModal').classList.add('hidden');
+            }
+
+            document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+                if (currentAssignmentToDelete) {
+                    const assignments = JSON.parse(localStorage.getItem('assignments'));
+                    const filtered = assignments.filter(a => a.title !== currentAssignmentToDelete);
+                    localStorage.setItem('assignments', JSON.stringify(filtered));
+                    loadAssignments();
+                    closeDeleteModal();
+                }
+            });
+
+            // Modified populateAssignments function
+            function populateAssignments(assignments) {
+                const container = document.getElementById('assignmentsContainer');
+
+                if (assignments.length === 0) {
+                    container.innerHTML = `
+            <div class="bg-white rounded-2xl p-6 shadow-md opacity-70">
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-tasks text-4xl mb-4"></i>
+                    <p class="text-lg">No assignments found. Click "New Assignment" to get started.</p>
+                </div>
+            </div>
+        `;
+                    return;
+                }
+
+                container.innerHTML = assignments.map(assignment => `
+        <div class="bg-white rounded-2xl p-6 shadow-md transition-all hover:shadow-lg hover:transform hover:scale-102">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-xl font-bold">${assignment.title}</h3>
+                    <p class="text-gray-500">${assignment.course}</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="px-3 py-1 rounded-full text-sm 
+                        ${assignment.status === 'completed' ? 'bg-green-100 text-green-800' :
+                        assignment.status === 'in-progress' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-purple-100 text-purple-800'}">
+                        ${assignment.status}
+                    </span>
+                    <button onclick="openAssignmentModal(${JSON.stringify(assignment)})" 
+                          class="text-purple-600 hover:text-purple-800">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button onclick="showDeleteModal('${assignment.title}')" 
+                          class="text-red-500 hover:text-red-700">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-4">${assignment.description}</p>
+            <div class="flex justify-between items-center">
+                <div>
+                    <span class="text-sm font-semibold">Due:</span>
+                    <span class="text-sm text-gray-600">
+                        ${new Date(assignment.dueDate).toLocaleDateString('en-US', {
+                                month: 'short', day: 'numeric', year: 'numeric'
+                            })}
+                    </span>
+                </div>
+                <div class="space-x-2">
+                    <a href="Assignments/${assignment.file}" 
+                      class="text-purple-600 hover:text-purple-800"
+                      download>
+                        <i class="fas fa-download"></i>
+                    </a>
+                    <button onclick="toggleAssignmentStatus('${assignment.title}', event)" 
+                          class="text-purple-600 hover:text-purple-800">
+                        <i class="fas ${assignment.status === 'completed' ? 'fa-undo' : 'fa-check-circle'}"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+            }
+
+            function toggleAssignmentStatus(title, event) {
+                const assignments = JSON.parse(localStorage.getItem('assignments'));
+                const assignment = assignments.find(a => a.title === title);
+                const wasCompleted = assignment.status === 'completed';
+
+                // Correct status cycling
+                assignment.status = assignment.status === 'pending' ? 'completed' :
+                    assignment.status === 'in-progress' ? 'completed' : 'pending';
+
+                // Trigger celebration only when completing
+                if (!wasCompleted && assignment.status === 'completed') {
+                    triggerCelebration(event);
+                }
+
+                localStorage.setItem('assignments', JSON.stringify(assignments));
+                populateAssignments(assignments);
+            }
+
+            function filterByStatus(status) {
+                const allAssignments = JSON.parse(localStorage.getItem('assignments'));
+                const filtered = status === 'all'
+                    ? allAssignments
+                    : allAssignments.filter(a => a.status === status);
+                populateAssignments(filtered);
+            }
+
+            function triggerCelebration(event) {
+                // Confetti explosion
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00']
+                });
+
+                // Additional confetti
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 50,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#8A2BE2', '#4B0082', '#9400D3']
+                    });
+                    confetti({
+                        particleCount: 50,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#8A2BE2', '#4B0082', '#9400D3']
+                    });
+                }, 300);
+            }
+        </script>
+        <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />  <title>GradeWise | Home</title>
+  <link rel="shortcut icon" href="Favicon.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-purple-100">
+  <div class="flex min-h-screen">
+    <div class="sidebar bg-purple-600 text-white w-64 p-6 rounded-r-3xl transition-transform duration-300 ease-in-out">
+      <div class="flex items-center mb-8">
+        <a href="index.html"><img alt="Home Icon" style="cursor: pointer;" class="w-10 h-10" src="home.svg" /></a>
+        <span class="ml-3 text-xl font-bold">Home</span>
+      </div>
+      <nav class="space-y-4">
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="dashboard.html">
+          <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="weekly-progress.html">
+          <i class="fas fa-chart-line mr-3"></i>Weekly Progress
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="ToDoList.html">
+          <i class="fas fa-check-double mr-3"></i>To-Do List
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="courses.html">
+          <i class="fas fa-book mr-3"></i>Courses
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="assingments.html">
+          <i class="fas fa-tasks mr-3"></i>Assignments
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="notes-maker.html">
+          <i class="fas fa-sticky-note mr-3"></i>Notes Maker
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="schedule.html">
+          <i class="fas fa-calendar-alt mr-3"></i>Timetable
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="result.html">
+          <i class="fas fa-chart-bar mr-3"></i>Result
+        </a>
+        <a class="logout flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="logout.html">
+          <i class="fas fa-sign-out-alt mr-3"></i>Logout
+        </a>
+      </nav>
+    </div>
+    <div class="flex-1 p-8 content">
+      <button id="burgerButton" class="text-purple-600 focus:outline-none mb-4" onclick="toggleSidebar()">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+      <div class="flex justify-between items-center mb-8">
+        <div class="relative">
+          <button class="burger-menu-button text-purple-600 focus:outline-none mr-4 hidden" onclick="toggleSidebar()">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+          <div class="relative">
+            <input class="bg-white rounded-full py-2 px-4 shadow-md w-64 pl-10" placeholder="Search" type="text" />
+            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="relative mr-4">
+            <button class="hover:text-purple-300 focus:outline-none" onclick="toggleNotifications()">
+              <i class="fas fa-bell text-xl"></i>
+              <span class="notification-badge" id="notificationCount">3</span>
+            </button>
+            <div id="notificationDropdown"
+              class="hidden absolute right-0 mt-2 w-72 bg-white rounded-md shadow-xl overflow-hidden z-50">
+              <div class="py-2">
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Lecture 9 of CS Uploaded</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Quiz for Database is
+                  live</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Assignment 2 Deadline
+                  Approaching</a>
+              </div>
+            </div>
+          </div>
+          <a href="profile.html">
+            <img alt="User profile picture" class="w-10 h-10 rounded-full mr-3" src="profile.svg" />
+          </a>
+          <div>
+            <div class="font-bold" id="studentName">USER 101</div>
+            <div class="text-sm text-gray-500" id="studentYear">3rd year</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-purple-500 text-white rounded-3xl p-6 mb-8 flex items-center justify-between">
+        <div>
+          <div class="text-sm" id="currentDate"></div>
+          <div class="text-2xl font-bold">Welcome back, <span id="welcomeBannerName">User</span>!</div>
+          <div class="text-sm">Always stay updated in your student portal</div>
+        </div>
+        <img alt="student" class="w-24 h-24" src="profile.svg" />
+      </div>
+
+      <!-- Enrolled Courses Section -->
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <div class="text-xl font-bold">Enrolled Courses</div>
+          <a id="see-all-courses" class="text-purple-500 cursor-pointer" onclick="toggleCourses()">See all</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="enrolledCoursesList">
+          <!-- Always visible courses -->
+          <div
+            class="course-item bg-white rounded-3xl p-6 shadow-md flex items-center justify-between hover:border-purple-500 hover:border-2 transition-all duration-200">
+            <div>
+              <div class="text-lg font-bold">Object Oriented Programming</div>
+              <a class="mt-2 bg-purple-500 text-white py-1 px-4 rounded-full view-course-button"
+                href="https://www.w3schools.com/cpp/cpp_oop.asp" target="_blank">View</a>
+            </div>
+            <img alt="Course 1" class="w-12 h-12" src="cpp.svg" />
+          </div>
+          <div
+            class="course-item bg-white rounded-3xl p-6 shadow-md flex items-center justify-between hover:border-purple-500 hover:border-2 transition-all duration-200">
+            <div>
+              <div class="text-lg font-bold">Fundamentals of Database Systems</div>
+              <a class="mt-2 bg-purple-500 text-white py-1 px-4 rounded-full view-course-button"
+                href="https://www.w3schools.com/mysql/mysql_rdbms.asp" target="_blank">View</a>
+            </div>
+            <img alt="Course 2" class="w-12 h-12" src="dbms.svg" />
+          </div>
+          <!-- Extra courses (initially hidden) -->
+          <div
+            class="course-item extra bg-white rounded-3xl p-6 shadow-md flex items-center justify-between hover:border-purple-500 hover:border-2 transition-all duration-200 hidden">
+            <div>
+              <div class="text-lg font-bold">Web Development</div>
+              <a class="mt-2 bg-purple-500 text-white py-1 px-4 rounded-full view-course-button"
+                href="https://www.w3schools.com/whatis/" target="_blank">View</a>
+            </div>
+            <img alt="Course 3" class="w-12 h-12" src="webdev.svg" />
+          </div>
+          <div
+            class="course-item extra bg-white rounded-3xl p-6 shadow-md flex items-center justify-between hover:border-purple-500 hover:border-2 transition-all duration-200 hidden">
+            <div>
+              <div class="text-lg font-bold">Data Structures</div>
+              <a class="mt-2 bg-purple-500 text-white py-1 px-4 rounded-full view-course-button"
+                href="https://www.w3schools.com/dsa/dsa_intro.php" target="_blank">View</a>
+            </div>
+            <img alt="Course 4" class="w-12 h-12" src="data-1.svg" />
+          </div>
+          <div
+            class="course-item extra bg-white rounded-3xl p-6 shadow-md flex items-center justify-between hover:border-purple-500 hover:border-2 transition-all duration-200 hidden">
+            <div>
+              <div class="text-lg font-bold">Software Engineering</div>
+              <a class="mt-2 bg-purple-500 text-white py-1 px-4 rounded-full view-course-button"
+                href="https://www.geeksforgeeks.org/software-engineering/" target="_blank">View</a>
+            </div>
+            <img alt="Course 5" class="w-12 h-12" src="coder.svg" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Assignments Section -->
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-4">
+          <div class="text-xl font-bold">Latest Assignments</div>
+          <a id="see-all-assignments" class="text-purple-500 cursor-pointer" onclick="toggleAssignments()">See all</a>
+        </div>
+        <!-- Wrap assignments in a grid for consistent gaps -->
+        <div id="assignmentsList" class="grid grid-cols-1 gap-4">
+          <!-- Always visible assignments -->
+          <div
+            class="assignment-item bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200">
+            <div class="font-bold">Database Design Assignment</div>
+            <div class="text-gray-500 text-sm">Submit your ER diagram and schema by next week.</div>
+            <a class="text-purple-500 text-sm" href="Assignments/DatabaseDesignAssignment.pdf" target="_blank">View
+              Assignment</a>
+            <a class="text-purple-500 text-sm" href="Assignments/SoftwareEngineeringReport.pdf"
+              download="DatabaseDesignAssignment.pdf"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Download
+              Assignment</a>
+          </div>
+          <div
+            class="assignment-item bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200">
+            <div class="font-bold">OOP Project Milestone 1</div>
+            <div class="text-gray-500 text-sm">Prototype demo and documentation due this Friday.</div>
+            <a class="text-purple-500 text-sm" href="Assignments/OOP_ProjectMilestone1.pdf" target="_blank">View
+              Assignment</a>
+            <a class="text-purple-500 text-sm" href="Assignments/SoftwareEngineeringReport.pdf"
+              download="OOP_ProjectMilestone1.pdf"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Download Assignment</a>
+          </div>
+          <!-- Extra assignments (initially hidden) -->
+          <div
+            class="assignment-item extra bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200 hidden">
+            <div class="font-bold">Web Development Project</div>
+            <div class="text-gray-500 text-sm">Build a responsive website by next month.</div>
+            <a class="text-purple-500 text-sm" href="Assignments/WebDevelopmentProject.pdf" target="_blank">View
+              Assignment</a>
+            <a class="text-purple-500 text-sm" href="Assignments/SoftwareEngineeringReport.pdf"
+              download="WebDevelopmentProject.pdf"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Download Assignment</a>
+          </div>
+          <div
+            class="assignment-item extra bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200 hidden">
+            <div class="font-bold">Data Structures Homework</div>
+            <div class="text-gray-500 text-sm">Solve linked list and stack problems by Friday.</div>
+            <a class="text-purple-500 text-sm" href="Assignments/DataStructuresHomework.pdf" target="_blank">View
+              Assignment</a>
+            <a class="text-purple-500 text-sm" href="Assignments/SoftwareEngineeringReport.pdf"
+              download="DataStructuresHomework.pdf"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Download Assignment</a>
+          </div>
+          <div
+            class="assignment-item extra bg-white rounded-3xl p-6 shadow-md hover:border-purple-500 hover:border-2 transition-all duration-200 hidden">
+            <div class="font-bold">Software Engineering Report</div>
+            <div class="text-gray-500 text-sm">Prepare a report on agile methodologies.</div>
+            <a class="text-purple-500 text-sm" href="Assignments/SoftwareEngineeringReport.pdf " target="_blank">View
+              Assignment</a>
+            <a class="text-purple-500 text-sm" href="Assignments/SoftwareEngineeringReport.pdf"
+              download="SoftwareEngineeringReport.pdf"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Download
+              Assignment</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

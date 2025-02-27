@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GradeWise | Student Profile</title>
+  <link rel="shortcut icon" href="Favicon.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- Responsive Sidebar CSS -->
+  <style>
+    /* On mobile (<=768px): sidebar is hidden by default */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .content.shifted {
+        margin-left: 16rem; /* w-64 */
+        transition: margin-left 0.3s ease-in-out;
+      }
+    }
+    /* On desktop (>768px): sidebar is always visible */
+    @media (min-width: 769px) {
+      .sidebar {
+        transform: translateX(0) !important;
+        position: relative;
+      }
+      .content {
+        margin-left: 16rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-purple-100">
+  <div class="flex min-h-screen">
+    <!-- Sidebar (same as other pages) -->
+    <div class="sidebar bg-purple-600 text-white w-64 p-6 rounded-r-3xl transition-transform duration-300 ease-in-out fixed z-20">
+      <div class="flex items-center mb-8">
+        <a href="index.html">
+          <img alt="Home Icon" style="cursor: pointer;" class="w-10 h-10" src="home.svg"/>
+        </a>
+        <span class="ml-3 text-xl font-bold">Student Portal</span>
+      </div>
+      <nav class="space-y-4">
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="dashboard.html">
+          <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="weekly-progress.html">
+          <i class="fas fa-chart-line mr-3"></i>Weekly Progress
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="ToDoList.html">
+          <i class="fas fa-check-double mr-3"></i>To-Do List
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="courses.html">
+          <i class="fas fa-book mr-3"></i>Courses
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="assingments.html">
+          <i class="fas fa-tasks mr-3"></i>Assignments
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="notes-maker.html">
+          <i class="fas fa-sticky-note mr-3"></i>Notes Maker
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="schedule.html">
+          <i class="fas fa-calendar-alt mr-3"></i>Timetable
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="result.html">
+          <i class="fas fa-chart-bar mr-3"></i>Result
+        </a>
+        <a class="logout flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2" href="logout.html">
+          <i class="fas fa-sign-out-alt mr-3"></i>Logout
+        </a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8 content transition-all duration-300">
+      <!-- Burger Menu Button -->
+      <button id="burgerButton" class="text-purple-600 focus:outline-none mb-4" onclick="toggleSidebar()">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+
+      <!-- Profile Section -->
+      <div class="bg-white shadow rounded-3xl overflow-hidden">
+        <!-- Gradient header section -->
+        <div class="bg-gradient-to-r from-purple-500 to-purple-700 p-6 flex items-center justify-between">
+          <div class="flex items-center">
+            <!-- Profile Image -->
+            <div class="relative">
+              <img 
+                src="profile.svg"
+                alt="Profile Photo"
+                class="w-24 h-24 object-cover rounded-full border-4 border-white"
+              />
+              <button class="absolute bottom-0 right-0 bg-gray-200 text-gray-700 rounded-full p-1 text-sm hover:bg-gray-300 transition">
+                <i class="fas fa-camera"></i>
+              </button>
+            </div>
+            <!-- Basic Info -->
+            <div class="ml-6 text-white">
+              <h2 class="text-2xl font-bold">User 101</h2>
+              <p class="text-sm">Computer Science Major</p>
+              <p class="text-sm">Ranking: 4/54</p>
+            </div>
+          </div>
+          <!-- Edit Profile Button -->
+          <button class="bg-white text-purple-600 px-4 py-2 rounded-full hover:bg-gray-100 transition">
+            Edit Profile
+          </button>
+        </div>
+
+        <!-- Tabs: About / Timeline (For demonstration, only "About" is active) -->
+        <div class="px-6 py-3 border-b border-gray-200 flex space-x-8">
+          <button class="pb-2 border-b-2 border-purple-500 text-purple-600 font-semibold focus:outline-none">About</button>
+          <button class="pb-2 text-gray-500 focus:outline-none hover:text-purple-600 transition">Timeline</button>
+        </div>
+
+        <!-- About Section -->
+        <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Left Column -->
+          <div>
+            <div class="mb-4">
+              <label class="text-gray-700 font-semibold block">Student Name</label>
+              <p class="text-gray-900">User 101</p>
+            </div>
+            <div class="mb-4">
+              <label class="text-gray-700 font-semibold block">Student ID</label>
+              <p class="text-gray-900">CS-12345</p>
+            </div>
+            <div class="mb-4">
+              <label class="text-gray-700 font-semibold block">Age</label>
+              <p class="text-gray-900">21</p>
+            </div>
+          </div>
+          <!-- Right Column -->
+          <div>
+            <div class="mb-4">
+              <label class="text-gray-700 font-semibold block">Courses Registered</label>
+              <p class="text-gray-900">Data Structures, OOP, DBMS, Operating Systems</p>
+            </div>
+            <div class="mb-4">
+              <label class="text-gray-700 font-semibold block">CGPA</label>
+              <p class="text-gray-900">3.7</p>
+            </div>
+            <div class="mb-4">
+              <label class="text-gray-700 font-semibold block">Major Achievements</label>
+              <p class="text-gray-900">Hackathon Winner, Dean's List, Student Ambassador</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Add this script to your profile.html page
+
+// Function to update profile with user data
+async function loadUserProfile() {
+  try {
+    const userDataString = localStorage.getItem('userData');
+    
+    // First display the basic data we already have
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      document.querySelectorAll('.profile-username').forEach(el => {
+        el.textContent = userData.username || 'User';
+      });
+      document.querySelectorAll('.profile-email').forEach(el => {
+        el.textContent = userData.email || '';
+      });
+    }
+    
+    // Then fetch the complete profile
+    const profileData = await getUserProfile();
+    
+    // Update UI with additional profile data
+    // This is where you would populate all the profile fields
+    // For now, we'll just update the basic info
+    if (profileData) {
+      document.querySelectorAll('.profile-username').forEach(el => {
+        el.textContent = profileData.username || 'User';
+      });
+      document.querySelectorAll('.profile-email').forEach(el => {
+        el.textContent = profileData.email || '';
+      });
+      
+      // You can add more fields here as needed
+    }
+    
+  } catch (error) {
+    console.error('Error loading profile:', error);
+    // If there's an authentication error, redirect to login
+    if (error.message.includes('token') || error.message.includes('auth')) {
+      window.location.href = 'login.html';
+    }
+  }
+}
+
+// Add this to all protected pages
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if user is logged in
+  protectPage();
+  
+  // Toggle sidebar function (for mobile)
+  window.toggleSidebar = function() {
+    const sidebar = document.querySelector('.sidebar');
+    const content = document.querySelector('.content');
+    sidebar.classList.toggle('active');
+    content.classList.toggle('shifted');
+  };
+  
+  // Load profile data
+  loadUserProfile();
+});
+</script>
+  <script src="script.js"></script>
+</body>
+</html>

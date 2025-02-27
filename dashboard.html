@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />  <title>GradeWise | Dashboard</title>
+  <link rel="shortcut icon" href="Favicon.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-purple-100">
+  <div class="flex min-h-screen">
+    <div class="sidebar bg-purple-600 text-white w-64 p-6 rounded-r-3xl transition-transform duration-300 ease-in-out">
+      <div class="flex items-center mb-8">
+        <a href="index.html"><img alt="Home Icon" style="cursor: pointer;" class="w-10 h-10" src="home.svg" /></a>
+        <span class="ml-3 text-xl font-bold">Dashboard</span>
+      </div>
+      <nav class="space-y-4">
+        <a class="flex items-center text-purple-200 text-white bg-purple-700 rounded-xl p-2" href="dashboard.html">
+          <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="weekly-progress.html">
+          <i class="fas fa-chart-line mr-3"></i>Weekly Progress
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="ToDoList.html">
+          <i class="fas fa-check-double mr-3"></i>To-Do List
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="courses.html">
+          <i class="fas fa-book mr-3"></i>Courses
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="assingments.html">
+          <i class="fas fa-tasks mr-3"></i>Assignments
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="notes-maker.html">
+          <i class="fas fa-sticky-note mr-3"></i>Notes Maker
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="schedule.html">
+          <i class="fas fa-calendar-alt mr-3"></i>Timetable
+        </a>
+        <a class="flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="result.html">
+          <i class="fas fa-chart-bar mr-3"></i>Result
+        </a>
+        <a class="logout flex items-center text-purple-200 hover:text-white hover:bg-purple-700 rounded-xl p-2"
+          href="logout.html">
+          <i class="fas fa-sign-out-alt mr-3"></i>Logout
+        </a>
+      </nav>
+    </div>
+    <div class="flex-1 p-8 content">
+      <div class="flex justify-between items-center mb-8">
+        <div class="relative">
+          <button id="burgerButton" class="text-purple-600 focus:outline-none mb-4" onclick="toggleSidebar()">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+        <div class="flex items-center">
+          <div class="relative mr-4">
+            <button class="hover:text-purple-300 focus:outline-none" onclick="toggleNotifications()">
+              <i class="fas fa-bell text-xl"></i>
+              <span class="notification-badge" id="notificationCount">3</span>
+            </button>
+            <div id="notificationDropdown"
+              class="hidden absolute right-0 mt-2 w-72 bg-white rounded-md shadow-xl overflow-hidden z-50">
+              <div class="py-2">
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Lecture 9 of CS Uploaded</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Quiz for Database is
+                  live</a>
+                <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Assignment 2 Deadline
+                  Approaching</a>
+              </div>
+            </div>
+          </div>
+          <a href="profile.html">
+            <img alt="User profile picture" class="w-10 h-10 rounded-full mr-3" src="profile.svg" />
+          </a>
+          <div>
+            <div class="font-bold" id="studentName">USER 101</div>
+            <div class="text-sm text-gray-500" id="studentYear">3rd year</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-purple-500 text-white rounded-3xl p-6 mb-8 flex items-center justify-between">
+        <div>
+          <div class="text-sm" id="currentDate"></div>
+          <div class="text-2xl font-bold">Welcome back, <span id="welcomeBannerName">User</span>!</div>
+          <div class="text-sm">Your personalized student dashboard is ready.</div>
+        </div>
+        <img alt="student" class="w-24 h-24" src="profile.svg" />
+      </div>
+      <section class="mb-8">
+        <h2 class="dashboard-card-title">Quick Links</h2>
+        <div class="quick-links-grid">
+          <a href="courses.html" class="quick-link-item">
+            <i class="fas fa-book"></i>
+            <p>Courses</p>
+          </a>
+          <a href="assingments.html" class="quick-link-item">
+            <i class="fas fa-tasks"></i>
+            <p>Assignments</p>
+          </a>
+          <a href="schedule.html" class="quick-link-item">
+            <i class="fas fa-calendar-alt"></i>
+            <p>Timetable</p>
+          </a>
+          <a href="notes-maker.html" class="quick-link-item">
+            <i class="fas fa-sticky-note"></i>
+            <p>Notes Maker</p>
+          </a>
+          <a href="weekly-progress.html" class="quick-link-item">
+            <i class="fas fa-chart-line"></i>
+            <p>Progress</p>
+          </a>
+          <a href="ToDoList.html" class="quick-link-item">
+            <i class="fas fa-check-double"></i>
+            <p>To-Do List</p>
+          </a>
+        </div>
+      </section>
+      <section class="mb-8">
+        <h2 class="dashboard-card-title">Assignment Completion Overview</h2>
+        <div class="dashboard-card">
+          <div class="assignment-chart-container">
+            <div class="circular-chart">
+              <svg viewBox="0 0 100 100">
+                <circle class="chart-circle-background" cx="50" cy="50" r="45" />
+                <circle class="chart-circle-completed" cx="50" cy="50" r="45" id="completedChartCircle" />
+                <circle class="chart-circle-inprogress" cx="50" cy="50" r="45" id="inprogressChartCircle" />
+                <circle class="chart-circle-pending" cx="50" cy="50" r="45" id="pendingChartCircle" />
+              </svg>
+              <span class="percentage-text" id="completionPercentageText">0%</span>
+            </div>
+            <div class="status-labels" id="assignmentStatusLabels">
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Add this section after the Assignment Completion Overview -->
+      <section class="mb-8">
+        <h2 class="dashboard-card-title">Course Progress Overview</h2>
+        <div class="dashboard-card">
+          <div class="assignment-chart-container">
+            <div class="circular-chart">
+              <svg viewBox="0 0 100 100">
+                <circle class="chart-circle-background" cx="50" cy="50" r="45" />
+                <circle class="chart-circle-completed" cx="50" cy="50" r="45" id="completedCourseCircle" />
+                <circle class="chart-circle-inprogress" cx="50" cy="50" r="45" id="inprogressCourseCircle" />
+                <circle class="chart-circle-pending" cx="50" cy="50" r="45" id="notstartedCourseCircle" />
+              </svg>
+              <span class="percentage-text" id="coursePercentageText">0%</span>
+            </div>
+            <div class="status-labels" id="courseStatusLabels">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  protectPage();
+    document.addEventListener('DOMContentLoaded', function () {
+      const circumference = 2 * Math.PI * 45; // Circle circumference
+
+      function updateAssignmentChart() {
+        const assignments = JSON.parse(localStorage.getItem('assignments') || []);
+        const completed = assignments.filter(a => a.status === 'completed').length;
+        const inProgress = assignments.filter(a => a.status === 'in-progress').length;
+        const pending = assignments.filter(a => a.status === 'pending').length;
+        const total = assignments.length;
+
+        // Calculate lengths
+        const completedLength = total ? (completed / total) * circumference : 0;
+        const inProgressLength = total ? (inProgress / total) * circumference : 0;
+        const pendingLength = total ? (pending / total) * circumference : 0;
+
+        // Get circle elements
+        const completedCircle = document.getElementById('completedChartCircle');
+        const inProgressCircle = document.getElementById('inprogressChartCircle');
+        const pendingCircle = document.getElementById('pendingChartCircle');
+
+        // Set stroke properties
+        completedCircle.style.strokeDasharray = `${completedLength} ${circumference}`;
+        completedCircle.style.strokeDashoffset = 0;
+
+        inProgressCircle.style.strokeDasharray = `${inProgressLength} ${circumference}`;
+        inProgressCircle.style.strokeDashoffset = -completedLength;
+
+        pendingCircle.style.strokeDasharray = `${pendingLength} ${circumference}`;
+        pendingCircle.style.strokeDashoffset = -(completedLength + inProgressLength);
+
+        // Update percentage text
+        document.getElementById('completionPercentageText').textContent =
+          total ? `${Math.round((completed / total) * 100)}%` : "0%";
+
+        // Update status labels
+        document.getElementById('assignmentStatusLabels').innerHTML = `
+      <div class="status-label status-label-green"><span></span>Completed: ${completed}</div>
+      <div class="status-label status-label-yellow"><span></span>In Progress: ${inProgress}</div>
+      <div class="status-label status-label-purple"><span></span>Pending: ${pending}</div>
+    `;
+      }
+
+      // Initialize with correct values
+      const circles = ['completedChartCircle', 'inprogressChartCircle', 'pendingChartCircle'];
+      circles.forEach(id => {
+        const circle = document.getElementById(id);
+        circle.style.strokeDasharray = `0 ${circumference}`;
+        circle.style.strokeDashoffset = 0;
+      });
+
+      setTimeout(updateAssignmentChart, 100);
+    });
+
+    const courseCircumference = 2 * Math.PI * 45;
+
+function updateCourseProgressChart() {
+    const courses = JSON.parse(localStorage.getItem('courses') || '[]');
+    const completed = courses.filter(c => calculateStatus(c) === 'completed').length;
+    const inProgress = courses.filter(c => calculateStatus(c) === 'in-progress').length;
+    const notStarted = courses.filter(c => calculateStatus(c) === 'not-started').length;
+    const total = courses.length;
+
+    // Calculate lengths
+    const completedLength = total ? (completed / total) * courseCircumference : 0;
+    const inProgressLength = total ? (inProgress / total) * courseCircumference : 0;
+    const notStartedLength = total ? (notStarted / total) * courseCircumference : 0;
+
+    // Get circle elements
+    const completedCircle = document.getElementById('completedCourseCircle');
+    const inProgressCircle = document.getElementById('inprogressCourseCircle');
+    const notStartedCircle = document.getElementById('notstartedCourseCircle');
+
+    // Set stroke properties
+    completedCircle.style.strokeDasharray = `${completedLength} ${courseCircumference}`;
+    completedCircle.style.strokeDashoffset = 0;
+
+    inProgressCircle.style.strokeDasharray = `${inProgressLength} ${courseCircumference}`;
+    inProgressCircle.style.strokeDashoffset = -completedLength;
+
+    notStartedCircle.style.strokeDasharray = `${notStartedLength} ${courseCircumference}`;
+    notStartedCircle.style.strokeDashoffset = -(completedLength + inProgressLength);
+
+    // Update percentage text
+    document.getElementById('coursePercentageText').textContent = 
+        total ? `${Math.round((completed / total) * 100)}%` : "0%";
+
+    // Update status labels
+    document.getElementById('courseStatusLabels').innerHTML = `
+        <div class="status-label status-label-green"><span></span>Completed: ${completed}</div>
+        <div class="status-label status-label-yellow"><span></span>In Progress: ${inProgress}</div>
+        <div class="status-label status-label-purple"><span></span>Not Started: ${notStarted}</div>
+    `;
+}
+
+// Initialize course chart
+const courseCircles = ['completedCourseCircle', 'inprogressCourseCircle', 'notstartedCourseCircle'];
+courseCircles.forEach(id => {
+    const circle = document.getElementById(id);
+    circle.style.strokeDasharray = `0 ${courseCircumference}`;
+    circle.style.strokeDashoffset = 0;
+});
+
+// Update both charts in the DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function () {
+    // Existing assignment chart code...
+    
+    // Add course chart update
+    setTimeout(() => {
+        updateAssignmentChart();
+        updateCourseProgressChart();
+    }, 100);
+});
+});
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>
